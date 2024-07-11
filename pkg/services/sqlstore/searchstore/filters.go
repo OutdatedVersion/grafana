@@ -48,7 +48,8 @@ type TitleFilter struct {
 }
 
 func (f TitleFilter) Where() (string, []any) {
-	return fmt.Sprintf("dashboard.title %s ?", f.Dialect.LikeStr()), []any{"%" + f.Title + "%"}
+	title := strings.Replace(f.Title, " ", "%", -1)
+	return fmt.Sprintf("dashboard.title %s ?", f.Dialect.LikeStr()), []any{"%" + title + "%"}
 }
 
 type FolderFilter struct {
